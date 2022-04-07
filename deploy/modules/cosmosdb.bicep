@@ -36,7 +36,7 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
   }
 }
 
-resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2021-04-15' = {
+resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-04-15' = {
   name: '${toLower(databaseName)}'
   parent: cosmosAccount
   properties: {
@@ -46,7 +46,7 @@ resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2021-0
   }
 }
 
-resource collection 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections@2021-06-15' = {
+resource collection 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-06-15' = {
   name: '${toLower(collectionName)}'
   parent: cosmosDB
   properties: {
