@@ -66,4 +66,3 @@ resource apimInstanceDiagnostics 'Microsoft.ApiManagement/service/diagnostics@20
 }
 
 output gatewayUrl string = apiManagement.properties.gatewayUrl
-output apiIPAddress string = apiManagement.properties.publicIPAddresses[0]

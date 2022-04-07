@@ -13,7 +13,6 @@ param collectionName string
 
 resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
   name: toLower(accountName)
-  kind: 'MongoDB'
   location: location
   properties: {
     // enableFreeTier: true

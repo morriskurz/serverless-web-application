@@ -122,7 +122,6 @@ module functionApp 'modules/function.bicep' = {
     cosmosDbName: cosmosDbName
     cosmosDbCollectionName: cosmosDbCollectionName
     keyVaultName: keyVaultName
-    apimIPAddress: apim.outputs.apiIPAddress
     resourceTags: resourceTags
   }
 }

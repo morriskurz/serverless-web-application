@@ -10,7 +10,6 @@ param cosmosAccountName string
 param cosmosDbName string
 param cosmosDbCollectionName string
 param keyVaultName string
-param apimIPAddress string
 param resourceTags object
 
 
@@ -112,22 +111,6 @@ resource functionApp 'Microsoft.Web/sites@2020-06-01' = {
           staticWebsiteURL
         ]
       }
-      ipSecurityRestrictions: [
-        {
-          ipAddress: '${apimIPAddress}/32'
-          action: 'Allow'
-          priority: 100
-          name: 'APIM'
-          description: 'Traffic from APIM'
-        }
-        {
-          ipAddress: 'Any'
-          action: 'Deny'
-          priority: 2147483647
-          name: 'Deny all'
-          description: 'Deny all access'
-        }
-      ]
     }
     httpsOnly: true
   }
