@@ -14,13 +14,13 @@ param resourceTags object
 @description('The pricing tier of this API Management service')
 param sku string = 'Consumption'
 
-@description('The instance size of this API Management service.')
-@minValue(1)
-param skuCount int = 1
+@description('The instance size of this API Management service. 0 for Consumption')
+@minValue(0)
+param skuCount int = 0
 
 var location = resourceGroup().location
-var publisherEmail = 'email@domain.com'
-var publisherName = 'Your Company'
+var publisherEmail = 'morriskurz@gmail.com'
+var publisherName = 'Morris Kurz'
 
 resource apiManagement 'Microsoft.ApiManagement/service@2021-01-01-preview' = {
   name: apimName
