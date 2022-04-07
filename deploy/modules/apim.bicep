@@ -12,7 +12,7 @@ param resourceTags object
   'Premium'
 ])
 @description('The pricing tier of this API Management service')
-param sku string = 'Developer'
+param sku string = 'Consumption'
 
 @description('The instance size of this API Management service.')
 @minValue(1)

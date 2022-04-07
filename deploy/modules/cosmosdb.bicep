@@ -16,6 +16,7 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
   kind: 'MongoDB'
   location: location
   properties: {
+    // enableFreeTier: true
     databaseAccountOfferType: 'Standard'
     consistencyPolicy: {
       defaultConsistencyLevel: 'Session'
@@ -23,6 +24,13 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
     locations: [
       {
         locationName: location
+        failoverPriority: 0
+        isZoneRedundant: false
+      }
+    ]
+	capabilities: [
+      {
+        name: 'EnableServerless'
       }
     ]
   }
@@ -34,9 +42,6 @@ resource cosmosDB 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2021-0
   properties: {
     resource: {
       id: databaseName
-    }
-    options: {
-      throughput: 400
     }
   }
 }

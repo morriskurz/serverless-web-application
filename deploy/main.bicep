@@ -36,12 +36,17 @@ param userAssignedIdentityResourceGroup string = resourceGroup().name
 @description('API friendly name')
 param apimApiName string = '2do'
 
+@description('General resource location')
+param location string = 'germanywestcentral'
+
+@description('Cosmos DB resource location')
+param cosmosDBLocation string = 'northeurope'
+
 param resourceTags object = {
   ProjectType: 'Azure Serverless Web'
   Purpose: 'Demo'
 }
 
-var location = resourceGroup().location
 var staticWebsiteStorageAccountName = '${appNameSuffix}${environmentType}'
 var cdnProfileName = 'cdn-${appNameSuffix}-${environmentType}'
 var functionStorageAccountName = 'fn${appNameSuffix}${environmentType}'
@@ -54,7 +59,7 @@ var cosmosDbAccountName = 'cosmos-${appNameSuffix}-${environmentType}'
 
 // SKUs
 var functionSku = environmentType == 'prod' ? 'EP1' : 'Y1'
-var apimSku = environmentType == 'prod' ? 'Standard' : 'Developer'
+var apimSku = environmentType == 'prod' ? 'Consumption' : 'Consumption'
 
 // static values
 var cosmosDbCollectionName = 'items'
@@ -99,6 +104,7 @@ module cosmosDB 'modules/cosmosdb.bicep' = {
     accountName: cosmosDbAccountName
     databaseName: cosmosDbName
     collectionName: cosmosDbCollectionName
+	location: cosmosDBLocation
   }
 }
 
