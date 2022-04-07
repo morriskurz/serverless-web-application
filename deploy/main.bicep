@@ -37,7 +37,7 @@ param userAssignedIdentityResourceGroup string = resourceGroup().name
 param apimApiName string = '2do'
 
 @description('General resource location')
-param location string = 'germanywestcentral'
+param location string = resourceGroup().location
 
 @description('Cosmos DB resource location')
 param cosmosDBLocation string = 'northeurope'
