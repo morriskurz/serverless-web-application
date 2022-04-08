@@ -7,7 +7,7 @@ var staticWebsiteHostName = replace(replace(staticWebsiteURL,'https://',''),'/',
 
 resource cdnProfile 'Microsoft.Cdn/profiles@2020-04-15' = {
   name: cdnProfileName
-  location: resourceGroup().location
+  location: location
   sku: { 
     name: 'Standard_Microsoft' 
   }

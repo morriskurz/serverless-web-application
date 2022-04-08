@@ -51,13 +51,13 @@ resource collection 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containe
   properties: {
     resource: {
       id: collectionName
-    }
-	partitionKey: {
+	  partitionKey: {
 		kind: 'Hash'
 		paths: [
 			'/_partitionKey'
 		]
-	}
+	  }
+    }
   }
 }
 
