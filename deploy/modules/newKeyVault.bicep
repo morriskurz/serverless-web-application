@@ -10,7 +10,7 @@ resource functionApp 'Microsoft.Web/sites@2021-01-15' existing = {
   name: functionAppName
 }
 
-resource keyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
+resource keyVault 'Microsoft.KeyVault/vaults@2021-10-01' = {
   name: keyVaultName
   location: resourceGroup().location
   properties: {
@@ -62,7 +62,7 @@ resource deploymentScripts 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
   }
 }
 
-resource keyVaultSecrets 'Microsoft.KeyVault/vaults/secrets@2021-06-01-preview' = {
+resource keyVaultSecrets 'Microsoft.KeyVault/vaults/secrets@2021-10-01' = {
   parent: keyVault
   name : keyVaultSecretName
   properties: {
