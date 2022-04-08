@@ -1,5 +1,6 @@
 param cdnProfileName string
 param staticWebsiteURL string
+param location string = 'northeurope'
 
 var endpointName = replace(cdnProfileName,'cdn-','')
 var staticWebsiteHostName = replace(replace(staticWebsiteURL,'https://',''),'/','')
@@ -15,7 +16,7 @@ resource cdnProfile 'Microsoft.Cdn/profiles@2020-04-15' = {
 resource endpoint 'Microsoft.Cdn/profiles/endpoints@2020-04-15' = {
   parent: cdnProfile
   name: endpointName
-  location: resourceGroup().location
+  location: location
   properties: {
     originHostHeader: staticWebsiteHostName
     isHttpAllowed: false
