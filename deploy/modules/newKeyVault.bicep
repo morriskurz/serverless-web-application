@@ -55,7 +55,7 @@ resource deploymentScripts 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
       -Name $accountName `
       -Type "ConnectionStrings"
       $DeploymentScriptOutputs = @{}
-      $DeploymentScriptOutputs['connectionString'] = $connectionStrings["PrimaryMasterKey"]
+      $DeploymentScriptOutputs['connectionString'] = $connectionStrings["Primary Read-Only SQL Connection String"]
     '''
     cleanupPreference: 'Always'
     retentionInterval: 'P1D'
