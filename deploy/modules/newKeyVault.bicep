@@ -55,7 +55,7 @@ resource deploymentScripts 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
       -Name $accountName `
       -Type "ConnectionStrings"
       $DeploymentScriptOutputs = @{}
-      $DeploymentScriptOutputs['connectionString'] = $connectionStrings["Primary MongoDB Connection String"]
+      $DeploymentScriptOutputs['connectionString'] = $connectionStrings["PrimaryMasterKey"]
     '''
     cleanupPreference: 'Always'
     retentionInterval: 'P1D'
