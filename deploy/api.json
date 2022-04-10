@@ -1,0 +1,120 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.5.6.12127",
+      "templateHash": "9257865179591567442"
+    }
+  },
+  "parameters": {
+    "apimName": {
+      "type": "string",
+      "metadata": {
+        "description": "APIM name"
+      }
+    },
+    "openApiUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Open API Definition URL"
+      }
+    },
+    "originUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Static Website URL"
+      }
+    },
+    "apimApiName": {
+      "type": "string",
+      "defaultValue": "2do",
+      "metadata": {
+        "description": "API friendly name"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2020-10-01",
+      "name": "apimOpenAPI",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "apimName": {
+            "value": "[parameters('apimName')]"
+          },
+          "openApiUrl": {
+            "value": "[parameters('openApiUrl')]"
+          },
+          "apiName": {
+            "value": "[parameters('apimApiName')]"
+          },
+          "originUrl": {
+            "value": "[parameters('originUrl')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.5.6.12127",
+              "templateHash": "12321563702835850128"
+            }
+          },
+          "parameters": {
+            "apimName": {
+              "type": "string"
+            },
+            "openApiUrl": {
+              "type": "string"
+            },
+            "apiName": {
+              "type": "string"
+            },
+            "originUrl": {
+              "type": "string"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.ApiManagement/service/apis",
+              "apiVersion": "2021-01-01-preview",
+              "name": "[format('{0}/{1}', parameters('apimName'), parameters('apiName'))]",
+              "properties": {
+                "path": "[parameters('apiName')]",
+                "displayName": "[parameters('apiName')]",
+                "isCurrent": true,
+                "subscriptionRequired": false,
+                "format": "swagger-link-json",
+                "value": "[parameters('openApiUrl')]",
+                "protocols": [
+                  "https"
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.ApiManagement/service/apis/policies",
+              "apiVersion": "2021-01-01-preview",
+              "name": "[format('{0}/{1}/{2}', parameters('apimName'), parameters('apiName'), 'policy')]",
+              "properties": {
+                "format": "rawxml",
+                "value": "[replace('<policies>\r\n    <inbound>\r\n        <cors>\r\n            <allowed-origins>\r\n                <origin>__ORIGIN__</origin>\r\n            </allowed-origins>\r\n            <allowed-methods>\r\n                <method>*</method>\r\n            </allowed-methods>\r\n            <allowed-headers>\r\n                <header>*</header>\r\n            </allowed-headers>\r\n            <expose-headers>\r\n                <header>*</header>\r\n            </expose-headers>\r\n        </cors>\r\n    </inbound>\r\n    <backend>\r\n        <forward-request />\r\n    </backend>\r\n    <outbound />\r\n    <on-error />\r\n</policies>', '__ORIGIN__', parameters('originUrl'))]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apimName'), parameters('apiName'))]"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
